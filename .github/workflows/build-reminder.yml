@@ -1,0 +1,56 @@
+name: Build Reminder
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if src/ or docs/ changed in this push
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+            src:
+              - 'src/**'
+
+      - uses: actions/setup-node@v4
+        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
+        run: npm ci
+
+      - name: Build
+        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
+        run: npm run build
+
+      - name: Bump "forgot to build" counter in README
+        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
+        run: |
+          COUNT=$(grep -oP '(?<=###### Forgot to build count: )\d+' README.md 2>/dev/null || echo 0)
+          NEW_COUNT=$((COUNT + 1))
+          sed -i "s/###### Forgot to build count: [0-9]*/## Forgot to build count: $NEW_COUNT/" README.md
+
+      - name: Commit and push
+        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/ README.md
+          git commit -m "you forgot to build again, dumbass!"
+          git push
