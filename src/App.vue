@@ -1,10 +1,7 @@
 <script setup></script>
 
 <template>
-  <h1>chinees poepen</h1>
-  <p>
-    chinees poepen
-  </p>
+  <router-view />
 </template>
 
 <style scoped></style>
