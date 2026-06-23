@@ -2,8 +2,6 @@
 
 ###### Forgot to build count: 1
 
-------
-
 A website to keep the score for the card game "chinees poepen".
 
 https://noahvsb.github.io/chinees-poepen/
