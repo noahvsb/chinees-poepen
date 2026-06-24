@@ -6,18 +6,14 @@ import { toQueryParams } from '@/utils/queryParams';
 
 const router = useRouter();
 
+// ref
+
 const newName = ref('');
 const players = ref([]);
+const rounds = ref(1);
+const formula = ref(0);
 
-function addPlayer() {
-  if (newName.value.trim() === '') return;
-  players.value.push(newName.value.trim());
-  newName.value = '';
-}
-
-function removePlayer(index) {
-  players.value.splice(index, 1);
-}
+// computed
 
 const maxRounds = computed(() => {
   if (players.value.length === 0) return 0;
@@ -30,10 +26,19 @@ const roundOptions = computed(() => {
   return opts;
 });
 
-const rounds = ref(1);
-const formula = ref(0);
-
 const canCreate = computed(() => players.value.length >= 2);
+
+// button handling
+
+function addPlayer() {
+  if (newName.value.trim() === '') return;
+  players.value.push(newName.value.trim());
+  newName.value = '';
+}
+
+function removePlayer(index) {
+  players.value.splice(index, 1);
+}
 
 function createGame() {
   router.push({

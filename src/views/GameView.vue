@@ -9,7 +9,21 @@ const router = useRouter();
 
 const data = parseQueryParams(route.query);
 
+// ref
+
+// TODO: add ref for guesses and gots
+
+// computed
+
+const options = computed(() => {
+  const opts = [];
+  for (let i = 0; i <= maxRounds.value; i++) opts.push(i);
+  return opts;
+});
+
 const canDoNext = computed(() => false); // TODO
+
+// button handling
 
 function doNext() {
   // calculate new state
@@ -44,9 +58,9 @@ function doNext() {
     <tbody>
       <tr v-for="(player, index) in data.players" :key="index">
         <td>{{ player }}</td>
-        <td>{{ data.playerScores[index] }}</td>
-        <td>0</td> <!-- TODO: input --> 
-        <td>0</td> <!-- TODO: input --> 
+        <td>{{ data.scores[index] }}</td>
+        <td>0</td> <!-- TODO: select --> 
+        <td>0</td> <!-- TODO: select --> 
       </tr>
     </tbody>
   </table>
@@ -59,7 +73,7 @@ function doNext() {
   <p>Rounds: {{ data.rounds }}</p>
   <p>Formula: {{ formulas[data.formula].label}}</p>
   <p>Current round: {{ data.currentRound }}</p>
-  <p>Player scores: {{ data.playerScores }}</p>
+  <p>Scores: {{ data.scores }}</p>
   <p>Direction: {{ data.direction }}</p>
 </template>
 
