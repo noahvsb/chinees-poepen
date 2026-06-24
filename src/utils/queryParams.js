@@ -4,7 +4,7 @@
  * REQUIRED
  * 
  * players: list of player names
- * maxAmount: max amount of cards
+ * peakAmount: the amount of cards at the peak
  * formula: formula used to calculate score
  * 
  * OPTIONAL (only at the start):
@@ -37,7 +37,7 @@ export function parseQueryParams(queryParams, finished) {
     ? { players, scores }
     : {
       players,
-      maxAmount: Number(queryParams.maxAmount),
+      peakAmount: Number(queryParams.peakAmount),
       formula: Number(queryParams.formula),
       amount: Number(queryParams.amount),
       scores,

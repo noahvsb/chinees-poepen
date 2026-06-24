@@ -22,12 +22,12 @@ const roundOptions = computed(() => {
 const data = computed(() => {
   return {
     players: players.value,
-    maxAmount: maxAmount.value,
+    peakAmount: peakAmount.value,
     formula: formula.value,
 
     amount: 1,
     scores: players.value.map(() => 0),
-    direction: maxAmount.value === 1 ? -1 : 1,
+    direction: peakAmount.value === 1 ? -1 : 1,
   };
 });
 
@@ -37,7 +37,7 @@ const canCreate = computed(() => players.value.length >= 2);
 
 const newName = ref('');
 const players = ref([]);
-const maxAmount = ref(1);
+const peakAmount = ref(1);
 const formula = ref(0);
 
 // TODO: add an option for how many rounds at the max amount are played (1 or 3 at max)
@@ -77,8 +77,8 @@ function createGame() {
   </table>
 
   <div>
-    <label>max amount</label>
-    <select v-model="maxAmount">
+    <label>peak amount</label>
+    <select v-model="peakAmount">
       <option v-for="r in roundOptions" :key="r" :value="r">{{ r }}</option>
     </select>
   </div>
