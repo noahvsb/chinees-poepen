@@ -47,9 +47,14 @@ function doNext() {
 }
 
 function updateAmount(next) {
-  next.amount += next.direction;
+  if (next.amount === next.peakAmount) {
+    next.direction = 0;
 
-  if (next.amount == next.peakAmount) next.direction -= 2; // TODO: currently only 1 game is played at the max amount, change that once the setting is added
+    next.peakRoundsPlayed += 1;
+    if (next.peakRoundsPlayed == next.peakRounds) next.direction = -1;
+  }
+
+  next.amount += next.direction;
 }
 
 function updateScores(next) {
@@ -103,7 +108,8 @@ function updateScores(next) {
   <h3>info</h3>
   <p>Peak amount: {{ data.peakAmount }}</p>
   <p>Formula: {{ formulas[data.formula].label}}</p>
-  <p>Direction: {{ data.direction > 0 ? "up" : "down" }}</p>
+  <p v-if="data.amount !== data.peakAmount">Direction: {{ data.direction > 0 ? "up" : "down" }}</p>
+  <p v-else>Rounds played at peak: {{ data.peakRoundsPlayed }}</p>
 
   <p>Total guesses: {{ totalGuesses }}</p>
   <p>Total gots: {{ totalGots }}</p>

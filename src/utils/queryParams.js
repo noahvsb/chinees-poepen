@@ -1,17 +1,14 @@
 /**
  * query parameters:
  * 
- * REQUIRED
- * 
  * players: list of player names
  * peakAmount: the amount of cards at the peak
+ * peakRounds: the amount of rounds at the peak
  * formula: formula used to calculate score
- * 
- * OPTIONAL (only at the start):
- * 
  * amount: the current amount of cards
  * scores: the scores of all players
  * direction: the direction for the next amount (next amount = amount + direction)
+ * peakRoundsPlayed: the amount of rounds played at the peak
  * 
  * on the finished screen, only players and scores are used
  */
@@ -38,10 +35,12 @@ export function parseQueryParams(queryParams, finished) {
     : {
       players,
       peakAmount: Number(queryParams.peakAmount),
+      peakRounds: Number(queryParams.peakRounds),
       formula: Number(queryParams.formula),
       amount: Number(queryParams.amount),
       scores,
       direction: Number(queryParams.direction),
+      peakRoundsPlayed: Number(queryParams.peakRoundsPlayed),
     }
 }
 
