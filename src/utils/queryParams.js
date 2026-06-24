@@ -4,48 +4,33 @@
  * REQUIRED
  * 
  * players: list of player names
- * rounds: total amount of rounds
+ * maxAmount: max amount of cards
  * formula: formula used to calculate score
  * 
  * OPTIONAL (only at the start):
  * 
- * currentRound: the current round
+ * amount: the current amount of cards
  * scores: the scores of all players
- * direction: the direction for the next round (new round = currentRound + direction) 
+ * direction: the direction for the next amount (next amount = amount + direction) 
  */
 
 // TODO: handle incorrect query params
 
-export function toQueryParams(
-  players,
-  rounds,
-  formula,
-  currentRound,
-  scores,
-  direction,
-) {
-  if (currentRound === undefined) {
-    currentRound = 1;
-    scores = new Array(players.length).fill(0);
-    direction = 1;
-  }
+export function toQueryParams(data) {
+  const queryparams = { ...data };
 
-  return {
-    players: players.join(','),
-    rounds,
-    formula,
-    currentRound,
-    scores: scores.join(','),
-    direction,
-  }
+  queryparams.players = queryparams.players.join(',');
+  queryparams.scores = queryparams.scores.join(',');
+
+  return queryparams;
 }
 
 export function parseQueryParams(queryParams) {
   return {
     players: parseListParam(queryParams.players),
-    rounds: Number(queryParams.rounds),
+    maxAmount: Number(queryParams.maxAmount),
     formula: Number(queryParams.formula),
-    currentRound: Number(queryParams.currentRound),
+    amount: Number(queryParams.amount),
     scores: parseListParam(queryParams.scores, true),
     direction: Number(queryParams.direction),
   }

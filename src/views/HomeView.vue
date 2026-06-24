@@ -10,20 +10,34 @@ const router = useRouter();
 
 const newName = ref('');
 const players = ref([]);
-const rounds = ref(1);
+const maxAmount = ref(1);
 const formula = ref(0);
+
+// TODO: add an option for how many rounds at the max amount are played (1 or 3 at max)
 
 // computed
 
-const maxRounds = computed(() => {
+const maxPossiblyAmount = computed(() => {
   if (players.value.length === 0) return 0;
   return Math.floor(52 / players.value.length);
 });
 
 const roundOptions = computed(() => {
   const opts = [1];
-  for (let i = 2; i <= maxRounds.value; i++) opts.push(i);
+  for (let i = 2; i <= maxPossiblyAmount.value; i++) opts.push(i);
   return opts;
+});
+
+const data = computed(() => {
+  return {
+    players: players.value,
+    maxAmount: maxAmount.value,
+    formula: formula.value,
+
+    amount: 1,
+    scores: players.value.map(() => 0),
+    direction: 1,
+  };
 });
 
 const canCreate = computed(() => players.value.length >= 2);
@@ -43,7 +57,7 @@ function removePlayer(index) {
 function createGame() {
   router.push({
     name: 'game',
-    query: toQueryParams(players.value, rounds.value, formula.value),
+    query: toQueryParams(data),
   });
 }
 </script>
@@ -62,8 +76,8 @@ function createGame() {
   </table>
 
   <div>
-    <label>rounds</label>
-    <select v-model="rounds">
+    <label>max amount</label>
+    <select v-model="maxAmount">
       <option v-for="r in roundOptions" :key="r" :value="r">{{ r }}</option>
     </select>
   </div>
