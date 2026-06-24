@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { formulas } from '@/utils/formulas';
+import { toQueryParams } from '@/utils/queryParams';
 
 const router = useRouter();
 
@@ -37,11 +38,7 @@ const canCreate = computed(() => players.value.length >= 2);
 function createGame() {
   router.push({
     name: 'game',
-    query: {
-      players: players.value.join(','),
-      rounds: rounds.value,
-      formula: formula.value,
-    },
+    query: toQueryParams(players.value, rounds.value, formula.value),
   });
 }
 </script>
