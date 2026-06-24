@@ -44,7 +44,10 @@ function createGame() {
 </script>
 
 <template>
-  <h1>chinees poepen</h1>
+  <h1>chinees poepen - create</h1>
+
+  <input v-model="newName" @keyup.enter="addPlayer" />
+  <button @click="addPlayer">add</button>
 
   <table>
     <tr v-for="(player, index) in players" :key="index">
@@ -52,9 +55,6 @@ function createGame() {
       <td><button @click="removePlayer(index)">remove</button></td>
     </tr>
   </table>
-
-  <input v-model="newName" @keyup.enter="addPlayer" />
-  <button @click="addPlayer">add</button>
 
   <div>
     <label>rounds</label>
