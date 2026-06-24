@@ -11,29 +11,38 @@
  * 
  * amount: the current amount of cards
  * scores: the scores of all players
- * direction: the direction for the next amount (next amount = amount + direction) 
+ * direction: the direction for the next amount (next amount = amount + direction)
+ * 
+ * on the finished screen, only players and scores are used
  */
 
 // TODO: handle incorrect query params
 
-export function toQueryParams(data) {
+export function toQueryParams(data, finished) {
   const queryparams = { ...data };
 
   queryparams.players = queryparams.players.join(',');
   queryparams.scores = queryparams.scores.join(',');
 
-  return queryparams;
+  return finished
+    ? { players: queryparams.players, scores: queryparams.scores}
+    : queryparams;
 }
 
-export function parseQueryParams(queryParams) {
-  return {
-    players: parseListParam(queryParams.players),
-    maxAmount: Number(queryParams.maxAmount),
-    formula: Number(queryParams.formula),
-    amount: Number(queryParams.amount),
-    scores: parseListParam(queryParams.scores, true),
-    direction: Number(queryParams.direction),
-  }
+export function parseQueryParams(queryParams, finished) {
+  const players = parseListParam(queryParams.players);
+  const scores = parseListParam(queryParams.scores, true);
+
+  return finished 
+    ? { players, scores }
+    : {
+      players,
+      maxAmount: Number(queryParams.maxAmount),
+      formula: Number(queryParams.formula),
+      amount: Number(queryParams.amount),
+      scores,
+      direction: Number(queryParams.direction),
+    }
 }
 
 function parseListParam(listParam, isNumber) {

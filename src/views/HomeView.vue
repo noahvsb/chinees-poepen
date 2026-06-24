@@ -6,15 +6,6 @@ import { toQueryParams } from '@/utils/queryParams';
 
 const router = useRouter();
 
-// ref
-
-const newName = ref('');
-const players = ref([]);
-const maxAmount = ref(1);
-const formula = ref(0);
-
-// TODO: add an option for how many rounds at the max amount are played (1 or 3 at max)
-
 // computed
 
 const maxPossiblyAmount = computed(() => {
@@ -36,11 +27,20 @@ const data = computed(() => {
 
     amount: 1,
     scores: players.value.map(() => 0),
-    direction: 1,
+    direction: maxAmount.value === 1 ? -1 : 1,
   };
 });
 
 const canCreate = computed(() => players.value.length >= 2);
+
+// ref
+
+const newName = ref('');
+const players = ref([]);
+const maxAmount = ref(1);
+const formula = ref(0);
+
+// TODO: add an option for how many rounds at the max amount are played (1 or 3 at max)
 
 // button handling
 
@@ -57,13 +57,14 @@ function removePlayer(index) {
 function createGame() {
   router.push({
     name: 'game',
-    query: toQueryParams(data),
+    query: toQueryParams(data.value),
   });
 }
 </script>
 
 <template>
-  <h1>chinees poepen - create</h1>
+  <h1>chinees poepen</h1>
+  <h2>create</h2>
 
   <input v-model="newName" @keyup.enter="addPlayer" />
   <button @click="addPlayer">add</button>
