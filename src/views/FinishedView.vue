@@ -9,6 +9,8 @@ const route = useRoute();
 const data = computed(() => {
   const temp = parseQueryParams(route.query, true);
 
+  if (temp.error) return temp;
+
   // sort players and scores
   const ranked = temp.players
     .map((player, index) => ({ player, score: temp.scores[index] }))
@@ -25,13 +27,19 @@ const data = computed(() => {
   <h1>chinees poepen</h1>
   <h2>finished</h2>
 
-  <table>
-    <tr v-for="(player, index) in data.players" :key="index">
-      <td>{{ index + 1 }}.</td>
-      <td>{{ player }}</td>
-      <td>{{ data.scores[index] }}</td>
-    </tr>
-  </table>
+  <div v-if="data.error">
+    <p style="color: red;">{{ data.error }}</p>
+  </div>
+
+  <div v-else>
+    <table>
+      <tr v-for="(player, index) in data.players" :key="index">
+        <td>{{ index + 1 }}.</td>
+        <td>{{ player }}</td>
+        <td>{{ data.scores[index] }}</td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <style scoped></style>

@@ -24,7 +24,7 @@ const data = computed(() => {
     players: players.value,
     peakAmount: peakAmount.value,
     peakRounds: peakRounds.value,
-    formula: formula.value,
+    formulaIndex: formulaIndex.value,
     amount: 1,
     scores: players.value.map(() => 0),
     direction: 1,
@@ -40,7 +40,7 @@ const newName = ref('');
 const players = ref([]);
 const peakAmount = ref(1);
 const peakRounds = ref(3);
-const formula = ref(0);
+const formulaIndex = ref(0);
 
 // button handling
 
@@ -93,7 +93,7 @@ function createGame() {
 
   <div>
     <label>points formula</label>
-    <select v-model="formula">
+    <select v-model="formulaIndex">
       <option v-for="(f, index) in formulas" :key="index" :value="index">{{ f.label }}</option>
     </select>
   </div>
