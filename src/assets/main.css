@@ -361,7 +361,7 @@ input[type='text']::placeholder {
 }
 
 .roster .empty {
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   font-size: 14px;
   padding: 10px 0;
 }

@@ -72,7 +72,7 @@ function createGame() {
     <PageHeader title="set the table" lede="Add everyone playing, then set the correct settings before you deal." />
 
     <div class="panel">
-      <h3 class="section-title">players</h3>
+      <h2 class="section-title">players</h2>
 
       <div class="input-row">
         <input v-model="newName" type="text" placeholder="player name" @keyup.enter="addPlayer" />
@@ -92,27 +92,27 @@ function createGame() {
     </div>
 
     <div class="panel">
-      <h3 class="section-title">settings</h3>
+      <h2 class="section-title">settings</h2>
 
       <div class="field">
-        <label>
+        <label for="peak-amount">
           peak amount
           <span class="hint" tabindex="0" data-tooltip="The number of cards each player holds at the highest point of the round.">?</span>
         </label>
         <div class="select-wrap">
-          <select v-model="peakAmount">
+          <select id="peak-amount" v-model="peakAmount">
             <option v-for="r in peakAmountOptions" :key="r" :value="r">{{ r }}</option>
           </select>
         </div>
       </div>
 
       <div class="field">
-        <label>
+        <label for="peak-rounds">
           peak rounds
           <span class="hint" tabindex="0" data-tooltip="How many rounds are played at the peak amount before the hand size starts shrinking again.">?</span>
         </label>
         <div class="select-wrap">
-          <select v-model="peakRounds">
+          <select id="peak-rounds" v-model="peakRounds">
             <option :key="1" :value="1">1</option>
             <option :key="3" :value="3">3</option>
           </select>
@@ -120,9 +120,9 @@ function createGame() {
       </div>
 
       <div class="field">
-        <label>points formula</label>
+        <label for="points-formula">points formula</label>
         <div class="select-wrap">
-          <select v-model="formulaIndex">
+          <select id="points-formula" v-model="formulaIndex">
             <option v-for="(f, index) in formulas" :key="index" :value="index">{{ f.label }}</option>
           </select>
         </div>
