@@ -69,7 +69,7 @@ function createGame() {
 
 <template>
   <div class="page">
-    <PageHeader title="set the table" lede="Add everyone playing, then shape the round before you deal." />
+    <PageHeader title="set the table" lede="Add everyone playing, then set the correct settings before you deal." />
 
     <div class="panel">
       <h3 class="section-title">players</h3>
