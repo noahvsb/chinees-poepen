@@ -116,14 +116,20 @@ function updateScores(next) {
                 <td class="num">{{ data.scores[index] }}</td>
                 <td class="num">
                   <div class="select-wrap compact">
-                    <select v-model="guesses[index]">
+                    <select
+                      v-model="guesses[index]"
+                      :aria-label="`${player} guess`"
+                    >
                       <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
                     </select>
                   </div>
                 </td>
                 <td class="num">
                   <div class="select-wrap compact">
-                    <select v-model="gots[index]">
+                    <select
+                      v-model="gots[index]"
+                      :aria-label="`${player} got`"
+                    >
                       <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
                     </select>
                   </div>
