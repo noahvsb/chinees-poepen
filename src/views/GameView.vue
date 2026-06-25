@@ -3,6 +3,9 @@ import { ref, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { calculateFormula, formulas } from '@/utils/formulas';
 import { toQueryParams, parseQueryParams } from '@/utils/queryParams';
+import { buildPeakSequence, currentPeakIndex } from '@/utils/peakSequence';
+import PageHeader from '@/components/PageHeader.vue';
+import PeakStrip from '@/components/PeakStrip.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -17,6 +20,11 @@ const totalGuesses = computed(() => guesses.value.reduce((sum, g) => sum + g, 0)
 const totalGots = computed(() => gots.value.reduce((sum, g) => sum + g, 0));
 
 const canDoNext = computed(() => totalGuesses.value !== data.value.amount && totalGots.value === data.value.amount);
+
+const peakSequence = computed(() =>
+  data.value.error ? [] : buildPeakSequence(data.value.peakAmount, data.value.peakRounds)
+);
+const peakIndex = computed(() => (data.value.error ? -1 : currentPeakIndex(data.value)));
 
 // ref
 
@@ -61,65 +69,80 @@ function updateAmount(next) {
 function updateScores(next) {
   for (let i = 0; i < next.players.length; i++) {
     const diff = Math.abs(guesses.value[i] - gots.value[i]);
-    
+
     if (diff) next.scores[i] -= diff;
-    else next.scores[i] += calculateFormula(next.formulaIndex, guesses.value[i]); 
+    else next.scores[i] += calculateFormula(next.formulaIndex, guesses.value[i]);
   }
 }
 </script>
 
 <template>
-  <h1>chinees poepen</h1>
-  <h2>game</h2>
+  <div class="page">
+    <PageHeader title="this round" />
 
-  <div v-if="data.error">
-    <p style="color: red;">{{ data.error }}</p>
-  </div>
+    <div v-if="data.error" class="error-banner">{{ data.error }}</div>
 
-  <div v-else>
-    <h3>amount of cards: {{ data.amount }}</h3>
+    <template v-else>
+      <div class="panel">
+        <PeakStrip :sequence="peakSequence" :current-index="peakIndex" />
+        <hr class="divider" />
+        <p class="meta-row">
+          <span><strong>{{ data.amount }}</strong> card{{ data.amount === 1 ? '' : 's' }} this round</span>
+          <br>
+          <span>formula: <strong>{{ formulas[data.formulaIndex].label }}</strong></span>
+        </p>
+      </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>name</th>
-          <th>score</th>
-          <th>guess</th>
-          <th>got</th>
-        </tr>
-      </thead>
+      <div class="panel">
+        <div class="table-wrap">
+          <table class="data">
+            <colgroup>
+              <col />
+              <col class="col-fit" />
+              <col class="col-tiny" />
+              <col class="col-tiny" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>name</th>
+                <th class="num">score</th>
+                <th class="num">guess</th>
+                <th class="num">got</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(player, index) in data.players" :key="index">
+                <td><span class="truncate" :title="player">{{ player }}</span></td>
+                <td class="num">{{ data.scores[index] }}</td>
+                <td class="num">
+                  <div class="select-wrap compact">
+                    <select v-model="guesses[index]">
+                      <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
+                    </select>
+                  </div>
+                </td>
+                <td class="num">
+                  <div class="select-wrap compact">
+                    <select v-model="gots[index]">
+                      <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <tbody>
-        <tr v-for="(player, index) in data.players" :key="index">
-          <td>{{ player }}</td>
-          <td>{{ data.scores[index] }}</td>
+        <p class="meta-row mt-16">
+          <span>total guesses: <strong>{{ totalGuesses }}</strong></span>
+          <br>
+          <span>total gots: <strong>{{ totalGots }}</strong></span>
+        </p>
+      </div>
 
-          <td>
-            <select v-model="guesses[index]">
-              <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
-            </select>
-          </td>
-
-          <td>
-            <select v-model="gots[index]">
-              <option v-for="r in options" :key="r" :value="r">{{ r }}</option>
-            </select>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <button :disabled="!canDoNext" @click="doNext">next</button>
-
-    <h3>info</h3>
-    <p>Peak amount: {{ data.peakAmount }}</p>
-    <p>Formula: {{ formulas[data.formulaIndex].label}}</p>
-    <p v-if="data.amount !== data.peakAmount">Direction: {{ data.direction > 0 ? "up" : "down" }}</p>
-    <p v-else>Rounds played at peak: {{ data.peakRoundsPlayed }}</p>
-
-    <p>Total guesses: {{ totalGuesses }}</p>
-    <p>Total gots: {{ totalGots }}</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" :disabled="!canDoNext" @click="doNext">deal next round</button>
+      </div>
+    </template>
   </div>
 </template>
-
-<style scoped></style>

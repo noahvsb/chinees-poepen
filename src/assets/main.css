@@ -1,0 +1,545 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Karla:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap');
+
+:root {
+  /* color - a felt table at night: near-black canvas, a green felt panel,
+     one warm brass accent. green is now a deliberate panel accent, not
+     the page's overall cast. */
+  --bg: #0e1310;
+  --bg-panel: #1b3527;
+  --bg-panel-2: #14271d;
+  --ink: #f6f1e4;
+  --ink-soft: #9bb5a3;
+  --ink-faint: #56705f;
+  --line: #345a45;
+  --accent: #e2ac44;
+  --accent-strong: #edbd5a;
+  --accent-ink: #161f12;
+  --danger: #e0827a;
+  --danger-bg: rgba(224, 130, 122, 0.12);
+
+  /* type */
+  --font-display: 'Big Shoulders Display', system-ui, sans-serif;
+  --font-body: 'Karla', system-ui, sans-serif;
+  --font-mono: 'Courier Prime', 'Courier New', Courier, monospace;
+
+  /* shape */
+  --radius-card: 10px;
+  --radius-sm: 6px;
+  --container: 640px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 12% 0%, rgba(226, 172, 68, 0.07), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.35), transparent 55%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- layout -------------------------------------------------------- */
+
+.page {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 28px;
+}
+.panel + .panel {
+  margin-top: 20px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px dashed var(--line);
+  margin: 24px 0;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+/* ---- header / brand -------------------------------------------------- */
+
+.brand {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.page-lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  max-width: 46ch;
+}
+
+.page-head {
+  margin-bottom: 32px;
+}
+
+/* ---- section / field labels ------------------------------------------ */
+
+.section-title {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* ---- form controls ----------------------------------------------------- */
+
+.field {
+  margin-bottom: 18px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type='text'],
+select {
+  width: 100%;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  appearance: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+input[type='text']::placeholder {
+  color: var(--ink-faint);
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+.input-row input {
+  flex: 1;
+}
+
+/* dropdown arrow wrapper - selects keep appearance:none for a consistent
+   look across browsers, this draws the affordance back in */
+.select-wrap {
+  position: relative;
+}
+.select-wrap select {
+  padding-right: 30px;
+}
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--ink-soft);
+  border-bottom: 1.5px solid var(--ink-soft);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* compact variant for narrow, numeric-only dropdowns (guess/got) - matches
+   the score column's font and width instead of stretching full-width */
+.select-wrap.compact select {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  text-align: right;
+  padding: 8px 18px 8px 6px;
+}
+.select-wrap.compact::after {
+  right: 7px;
+  width: 5px;
+  height: 5px;
+}
+
+/* ---- inline help tooltip ------------------------------------------------ */
+
+.hint {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 6px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 50%;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  cursor: help;
+  vertical-align: middle;
+}
+
+.hint::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 200px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.4;
+  padding: 8px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 5;
+}
+
+.hint:hover::after,
+.hint:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---- buttons ------------------------------------------------------------ */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* ---- roster (player list on setup) --------------------------------------- */
+
+.roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.roster li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.roster li:last-child {
+  border-bottom: none;
+}
+
+.roster .index {
+  font-family: var(--font-mono);
+  color: var(--ink-faint);
+  font-size: 13px;
+  width: 1.6em;
+  flex-shrink: 0;
+}
+
+.roster .name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roster .empty {
+  color: var(--ink-faint);
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+/* ---- data table ----------------------------------------------------------- */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table.data {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+table.data .col-fit {
+  width: 84px;
+}
+table.data .col-fit-sm {
+  width: 56px;
+}
+table.data .col-tiny {
+  width: 52px;
+}
+
+table.data th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding: 0 12px 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+table.data td {
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+table.data tr:last-child td {
+  border-bottom: none;
+}
+
+table.data td.num,
+table.data th.num {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+table.data tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+tr.rank-1 td {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* truncate long content, e.g. player names, and pair with a title
+   attribute in the markup so the full value still shows on hover */
+.truncate {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- error banner ------------------------------------------------------------ */
+
+.error-banner {
+  border: 1px solid var(--danger);
+  background: var(--danger-bg);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+/* ---- peak strip (signature element) -------------------------------------------- */
+/* draws the shape of the night: hand size climbing to a peak, then back down */
+
+.peak-strip {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 56px;
+}
+
+.peak-strip .bar {
+  flex: 1;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  border-radius: 3px 3px 0 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.peak-strip .bar.is-past {
+  background: var(--ink-faint);
+  border-color: transparent;
+  opacity: 0.4;
+}
+
+.peak-strip .bar.is-current {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.peak-strip-caption {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+}
+
+/* ---- meta row (small inline stats) --------------------------------------------- */
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.meta-row strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---- not found ------------------------------------------------------------------ */
+
+.not-found {
+  text-align: center;
+  padding-top: 18vh;
+}
+.not-found .page-title {
+  font-size: 112px;
+  color: var(--accent);
+}
+.not-found .page-lede {
+  margin: 0 auto 28px;
+}
+
+/* ---- responsive ------------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .page {
+    padding: 36px 16px 56px;
+  }
+  .page-title {
+    font-size: 30px;
+  }
+  .panel {
+    padding: 20px;
+  }
+  .not-found .page-title {
+    font-size: 72px;
+  }
+  .btn-row {
+    justify-content: stretch;
+  }
+  .btn-row .btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
