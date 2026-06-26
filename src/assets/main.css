@@ -8,6 +8,7 @@
   --ink: #f6f1e4;
   --ink-soft: #9bb5a3;
   --ink-faint: #56705f;
+  --warning: #e2954a;
   --line: #345a45;
   --accent: #e2ac44;
   --accent-strong: #edbd5a;
@@ -443,6 +444,14 @@ tr.rank-1 td {
   padding: 16px;
   color: var(--ink);
   font-size: 14px;
+}
+
+/* ---- warning ------------------------------------------------------------------- */
+
+.warning {
+  color: var(--warning);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
 }
 
 /* ---- peak strip (signature element) -------------------------------------------- */

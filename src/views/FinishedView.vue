@@ -54,5 +54,11 @@ const data = computed(() => {
         </table>
       </div>
     </div>
+    
+    <br>
+
+    <div class="btn-row">
+      <RouterLink to="/" class="btn btn-primary">back to the table</RouterLink>
+    </div>
   </div>
 </template>

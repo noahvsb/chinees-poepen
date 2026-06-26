@@ -80,7 +80,13 @@ function updateScores(next) {
   <div class="page">
     <PageHeader title="this round" />
 
-    <div v-if="data.error" class="error-banner">{{ data.error }}</div>
+    <div v-if="data.error">
+      <div v-if="data.error" class="error-banner">{{ data.error }}</div>
+      
+      <div class="btn-row">
+        <RouterLink to="/" class="btn btn-primary">back to the table</RouterLink>
+      </div>
+    </div>
 
     <template v-else>
       <div class="panel">

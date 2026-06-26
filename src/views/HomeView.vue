@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { formulas } from '@/utils/formulas';
 import { toQueryParams } from '@/utils/queryParams';
@@ -11,14 +11,14 @@ const router = useRouter();
 
 // computed
 
-const maxPossiblyAmount = computed(() => {
+const maxPossibleAmount = computed(() => {
   if (players.value.length === 0) return 0;
-  return Math.floor(52 / players.value.length);
+  return Math.min(Math.floor(52 / players.value.length), 25);
 });
 
 const peakAmountOptions = computed(() => {
   const opts = [1];
-  for (let i = 2; i <= maxPossiblyAmount.value; i++) opts.push(i);
+  for (let i = 2; i <= maxPossibleAmount.value; i++) opts.push(i);
   return opts;
 });
 
@@ -46,6 +46,12 @@ const players = ref([]);
 const peakAmount = ref(1);
 const peakRounds = ref(3);
 const formulaIndex = ref(0);
+
+// watch
+
+watch(maxPossibleAmount, (newMaxPossibleAmount) => {
+  peakAmount.value = Math.min(peakAmount.value, newMaxPossibleAmount);
+});
 
 // button handling
 
@@ -89,6 +95,8 @@ function createGame() {
           <button class="btn btn-ghost" @click="removePlayer(index)">remove</button>
         </li>
       </ul>
+
+     <p v-if="players.length < 2" class="warning">At least 2 players are needed.</p>
     </div>
 
     <div class="panel">
@@ -100,7 +108,7 @@ function createGame() {
           <span class="hint" tabindex="0" data-tooltip="The number of cards each player holds at the highest point of the round.">?</span>
         </label>
         <div class="select-wrap">
-          <select id="peak-amount" v-model="peakAmount">
+          <select id="peak-amount" v-model="peakAmount" :disabled="!canCreate">
             <option v-for="r in peakAmountOptions" :key="r" :value="r">{{ r }}</option>
           </select>
         </div>
