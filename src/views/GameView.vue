@@ -60,7 +60,10 @@ function updateAmount(next) {
     next.direction = 0;
 
     next.peakRoundsPlayed += 1;
-    if (next.peakRoundsPlayed == next.peakRounds) next.direction = -1;
+    if (next.peakRoundsPlayed == next.peakRounds) {
+      next.peakRoundsPlayed = 0;
+      next.direction = -1;
+    }
   }
 
   next.amount += next.direction;
