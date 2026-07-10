@@ -2,5 +2,3 @@ node_modules
 
 .vscode/*
 !.vscode/extensions.json
-
-package-lock.json
