@@ -1,6 +1,6 @@
 # chinees poepen
 
-###### Forgot to build count: 1
+###### Forgot to build count: 2
 
 A website to keep the score for the card game "chinees poepen".
 
