@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 jobs:
   build-check:
@@ -55,9 +54,3 @@ jobs:
           git add docs/ README.md
           git commit -m "you forgot to build again, dumbass!"
           git push
-
-      - name: Trigger Pages deploy
-        if: steps.filter.outputs.src == 'true' && steps.filter.outputs.docs == 'false'
-        run: gh workflow run pages.yml
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
