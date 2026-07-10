@@ -80,7 +80,7 @@ function createGame() {
     <div class="panel">
       <h2 class="section-title">players</h2>
 
-      <div class="input-row">
+      <div class="input-row"> 
         <input v-model="newName" type="text" placeholder="player name" @keyup.enter="addPlayer" />
         <button class="btn btn-ghost" @click="addPlayer">add</button>
       </div>
