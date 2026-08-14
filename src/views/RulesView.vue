@@ -14,9 +14,11 @@ function goBack() {
 
 <template>
   <div class="page">
-    <button type="button" class="btn btn-primary top-right" @click="goBack">
-      back to the table
-    </button>
+    <div class="header-actions">
+      <button type="button" class="btn btn-primary" @click="goBack">
+        back to the table
+      </button>
+    </div>
 
     <PageHeader title="rules" />
 

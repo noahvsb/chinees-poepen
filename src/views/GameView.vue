@@ -1,15 +1,18 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { calculateFormula, formulas } from '@/utils/formulas';
 import { toQueryParams, parseQueryParams } from '@/utils/queryParams';
 import { buildPeakSequence, currentPeakIndex } from '@/utils/peakSequence';
 import PageHeader from '@/components/PageHeader.vue';
 import PeakStrip from '@/components/PeakStrip.vue';
 import ButtonIcon from '@/components/ButtonIcon.vue';
+import LocaleToggle from '@/components/LocaleToggle.vue';
 
 const route = useRoute();
 const router = useRouter();
+const { t } = useI18n();
 
 // computed
 
@@ -82,11 +85,14 @@ function updateScores(next) {
 
 <template>
   <div class="page">
-    <RouterLink to="/rules" class="top-right" aria-label="View Rules">
-      <ButtonIcon name="?"/>
-    </RouterLink>
+    <div class="header-actions">
+      <LocaleToggle/>
+      <RouterLink to="/rules" aria-label="View Rules">
+        <ButtonIcon name="?"/>
+      </RouterLink>
+    </div>
 
-    <PageHeader :title="`${data.amount} cards`" />
+    <PageHeader :title="t('game.title', data.amount)" />
 
     <div v-if="data.error">
       <div v-if="data.error" class="error-banner">{{ data.error }}</div>
@@ -151,6 +157,10 @@ function updateScores(next) {
           <span>total guesses: <strong>{{ totalGuesses }}</strong></span>
           <br>
           <span>total gots: <strong>{{ totalGots }}</strong></span>
+        </p>
+        <hr class="divider" />
+        <p class="meta-row">
+          <span>formula: <strong>{{ formulas[data.formulaIndex].label }}</strong></span>
         </p>
       </div>
 

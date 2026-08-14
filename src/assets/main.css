@@ -508,12 +508,35 @@ tr.rank-1 td {
   font-weight: 500;
 }
 
-/* ---- top-right ----------------------------------------------------------- */
+/* ---- header actions ------------------------------------------------------ */
 
-.top-right {
+.header-actions {
   position: absolute;
   top: 2rem;
   right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---- locale toggle ------------------------------------------------------- */
+
+.locale-toggle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.locale-toggle:hover {
+  border-color: var(--ink-soft);
+  color: var(--ink);
 }
 
 /* ---- rules view (numbered steps, examples, definitions) ------------------ */

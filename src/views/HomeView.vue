@@ -1,14 +1,17 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { formulas } from '@/utils/formulas';
 import { toQueryParams } from '@/utils/queryParams';
 import { buildPeakSequence } from '@/utils/peakSequence';
 import PageHeader from '@/components/PageHeader.vue';
 import PeakStrip from '@/components/PeakStrip.vue';
 import ButtonIcon from '@/components/ButtonIcon.vue';
+import LocaleToggle from '@/components/LocaleToggle.vue';
 
 const router = useRouter();
+const { t } = useI18n();
 
 // computed
 
@@ -76,11 +79,14 @@ function createGame() {
 
 <template>
   <div class="page">
-    <RouterLink to="/rules" class="top-right" aria-label="View Rules">
-      <ButtonIcon name="?"/>
-    </RouterLink>
-    
-    <PageHeader title="set the table" lede="Add everyone playing, then set the correct settings before you deal." />
+    <div class="header-actions">
+      <LocaleToggle/>
+      <RouterLink to="/rules" aria-label="View Rules">
+        <ButtonIcon name="?"/>
+      </RouterLink>
+    </div>
+
+    <PageHeader :title="t('home.title')" :lede="t('home.lede')" />
 
     <div class="panel">
       <h2 class="section-title">players</h2>
