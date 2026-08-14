@@ -14,6 +14,10 @@ function goBack() {
 
 <template>
   <div class="page">
+    <button type="button" class="btn btn-primary top-right" @click="goBack">
+      back to the table
+    </button>
+
     <PageHeader title="rules" />
 
     <div class="panel">
@@ -79,11 +83,9 @@ function goBack() {
 
     <div class="panel">
       <h2 class="section-title">scoring</h2>
-      <p>
-        Guessed wrong? You lose points equal to how far off you were:
-        <p><code>&minus;|guess &minus; got|</code></p>
-        Guessed right? You score points using whatever formula was set when the game was created.
-      </p>
+      <p>Guessed wrong? You lose points equal to how far off you were:</p>
+      <p><code>&minus;|guess &minus; got|</code></p>
+      <p>Guessed right? You score points using whatever formula was set when the game was created.</p>
     </div>
 
     <div class="panel">

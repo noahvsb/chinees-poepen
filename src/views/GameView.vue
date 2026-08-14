@@ -82,7 +82,7 @@ function updateScores(next) {
 
 <template>
   <div class="page">
-    <RouterLink to="/rules" class="rules-link" aria-label="View Rules">
+    <RouterLink to="/rules" class="top-right" aria-label="View Rules">
       <ButtonIcon name="?"/>
     </RouterLink>
 

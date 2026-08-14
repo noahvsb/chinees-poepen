@@ -508,9 +508,9 @@ tr.rank-1 td {
   font-weight: 500;
 }
 
-/* ---- rules link ----------------------------------------------------------- */
+/* ---- top-right ----------------------------------------------------------- */
 
-.rules-link {
+.top-right {
   position: absolute;
   top: 2rem;
   right: 2rem;
