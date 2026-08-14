@@ -86,7 +86,7 @@ function updateScores(next) {
       <ButtonIcon name="?"/>
     </RouterLink>
 
-    <PageHeader title="this round" />
+    <PageHeader :title="`${data.amount} cards`" />
 
     <div v-if="data.error">
       <div v-if="data.error" class="error-banner">{{ data.error }}</div>
@@ -99,12 +99,6 @@ function updateScores(next) {
     <template v-else>
       <div class="panel">
         <PeakStrip :sequence="peakSequence" :current-index="peakIndex" />
-        <hr class="divider" />
-        <p class="meta-row">
-          <span><strong>{{ data.amount }}</strong> card{{ data.amount === 1 ? '' : 's' }} this round</span>
-          <br>
-          <span>formula: <strong>{{ formulas[data.formulaIndex].label }}</strong></span>
-        </p>
       </div>
 
       <div class="panel">

@@ -516,6 +516,67 @@ tr.rank-1 td {
   right: 2rem;
 }
 
+/* ---- rules view (numbered steps, examples, definitions) ------------------ */
+ 
+.rules-steps {
+  counter-reset: rule-step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+ 
+.rules-steps li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+ 
+.rules-steps li::before {
+  counter-increment: rule-step;
+  content: counter(rule-step);
+  flex-shrink: 0;
+  width: 1.4em;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+ 
+.term {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+ 
+.rules-example {
+  margin-top: 14px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+ 
+.rules-example strong {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+ 
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
 /* ---- not found ------------------------------------------------------------------ */
 
 .not-found {

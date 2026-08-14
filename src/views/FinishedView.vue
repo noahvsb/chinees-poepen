@@ -21,6 +21,16 @@ const data = computed(() => {
 
   return temp;
 });
+
+const spawnEliasText = computed(() => {
+  if (!data.value || data.value.error) return false;
+
+  const index = data.value.players.findIndex(
+    (player) => player.trim().toLowerCase() === 'elias'
+  );
+
+  return index !== -1 && data.value.scores[index] >= 0;
+});
 </script>
 
 <template>
@@ -54,8 +64,10 @@ const data = computed(() => {
         </table>
       </div>
     </div>
-    
+
     <br>
+
+    <div v-if="spawnEliasText" class="error-banner">Error: onmogelijk da Elias meer dan 0 heeft.</div>
 
     <div class="btn-row">
       <RouterLink to="/" class="btn btn-primary">back to the table</RouterLink>
