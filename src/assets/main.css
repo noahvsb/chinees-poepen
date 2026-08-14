@@ -83,6 +83,7 @@ a:hover {
   max-width: var(--container);
   margin: 0 auto;
   padding: 56px 24px 80px;
+  position: relative;
 }
 
 .panel {
@@ -505,6 +506,14 @@ tr.rank-1 td {
 .meta-row strong {
   color: var(--ink);
   font-weight: 500;
+}
+
+/* ---- rules link ----------------------------------------------------------- */
+
+.rules-link {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
 }
 
 /* ---- not found ------------------------------------------------------------------ */

@@ -6,6 +6,7 @@ import { toQueryParams } from '@/utils/queryParams';
 import { buildPeakSequence } from '@/utils/peakSequence';
 import PageHeader from '@/components/PageHeader.vue';
 import PeakStrip from '@/components/PeakStrip.vue';
+import ButtonIcon from '@/components/ButtonIcon.vue';
 
 const router = useRouter();
 
@@ -75,6 +76,10 @@ function createGame() {
 
 <template>
   <div class="page">
+    <RouterLink to="/rules" class="rules-link" aria-label="View Rules">
+      <ButtonIcon name="?"/>
+    </RouterLink>
+    
     <PageHeader title="set the table" lede="Add everyone playing, then set the correct settings before you deal." />
 
     <div class="panel">

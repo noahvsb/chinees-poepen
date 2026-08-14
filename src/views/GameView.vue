@@ -6,6 +6,7 @@ import { toQueryParams, parseQueryParams } from '@/utils/queryParams';
 import { buildPeakSequence, currentPeakIndex } from '@/utils/peakSequence';
 import PageHeader from '@/components/PageHeader.vue';
 import PeakStrip from '@/components/PeakStrip.vue';
+import ButtonIcon from '@/components/ButtonIcon.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -81,6 +82,10 @@ function updateScores(next) {
 
 <template>
   <div class="page">
+    <RouterLink to="/rules" class="rules-link" aria-label="View Rules">
+      <ButtonIcon name="?"/>
+    </RouterLink>
+
     <PageHeader title="this round" />
 
     <div v-if="data.error">
