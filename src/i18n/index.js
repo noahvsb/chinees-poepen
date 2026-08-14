@@ -14,7 +14,7 @@ function detectInitialLocale() {
 export const i18n = createI18n({
   legacy: false,
   locale: detectInitialLocale(),
-  fallbackLocale: 'en',
+  fallbackLocale: 'nl',
   messages: { en, nl },
 });
 
