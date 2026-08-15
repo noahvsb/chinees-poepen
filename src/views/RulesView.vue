@@ -1,7 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import PageHeader from '@/components/PageHeader.vue';
+import LocaleToggle from '@/components/LocaleToggle.vue';
 
+const { t } = useI18n();
 const router = useRouter();
 
 function goBack() {
@@ -15,93 +18,62 @@ function goBack() {
 <template>
   <div class="page">
     <div class="header-actions">
-      <button type="button" class="btn btn-primary" @click="goBack">
-        back to the table
-      </button>
+      <button type="button" class="btn btn-primary" @click="goBack">{{ t('common.backButton') }}</button>
+      <LocaleToggle/>
     </div>
 
-    <PageHeader title="rules" />
+    <PageHeader :title="t('rules.title')" :lede="t('rules.lede')" />
 
     <div class="panel">
-      <h2 class="section-title">the shape of the night</h2>
-      <p>
-        Chinees Poepen is a trick-taking game where your hand grows one card at a
-        time, up to a peak you set beforehand, then shrinks back down to a single
-        card again. Whoever draws the shortest straw deals the first round. The
-        app always tells you how many cards to deal, you're just following
-        the pyramid up and back down.
-      </p>
+      <h2 class="section-title">{{ t('rules.shape.title') }}</h2>
+      <p>{{ t('rules.shape.content') }}</p>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">dealing &amp; trump</h2>
-      <p>Deal every player their cards for the round.</p>
-      <p>Flip the next card in the deck, its suit is trump for the round.</p>
-      <br>
-      <p>Exception: the peak round is played without trump. If you're playing 3 peak rounds, only the middle round of the three has no trump.</p>
+      <h2 class="section-title">{{ t('rules.dealing.title') }}</h2>
+      <p style="white-space:pre-line">{{ t('rules.dealing.content') }}</p>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">guessing</h2>
-      <p>
-        Before a single card is played, everyone guesses how many tricks
-        they'll win, starting with the player to the left of the dealer and
-        going around.
-      </p>
-      <p class="mt-16">
-        To make it fun, we guarantee that at least one person is screwed over: the guesses for the round
-        can never add up to the total number of cards dealt. That means the
-        dealer, who guesses last, is sometimes locked out of an option.
-      </p>
+      <h2 class="section-title">{{ t('rules.guessing.title') }}</h2>
+      <p>{{ t('rules.guessing.content1') }}</p>
+      <p class="mt-16">{{ t('rules.guessing.content2') }}</p>
       <div class="rules-example">
-        <strong>Example:</strong> it's the first round, so everyone has 1
-        card. If every other player guesses 0, the dealer isn't allowed to
-        guess 1, they're forced to guess 0 too.
+        <strong>{{ t('rules.guessing.example.title') }}</strong>
+        {{ t('rules.guessing.example.content') }}
       </div>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">playing tricks</h2>
-      <p>
-        The player to the left of the dealer leads the first trick. From
-        there, only two rules matter:
-      </p>
+      <h2 class="section-title">{{ t('rules.playing.title') }}</h2>
+      <p>{{ t('rules.playing.content1') }}</p>
       <ul class="rules-steps">
         <li>
-          <span class="term">Follow suit.</span> If you can match the suit
-          that was led, you have to.
+          <span class="term">{{ t('rules.playing.step1.term') }}</span>
+          {{ t('rules.playing.step1.content') }}
         </li>
         <li>
-          <span class="term">Table sticks.</span> Once a card is played, it's
-          played ;)
+          <span class="term">{{ t('rules.playing.step2.term') }}</span>
+          {{ t('rules.playing.step2.content') }}
         </li>
       </ul>
-      <p class="mt-16">
-        The trick is won by the highest card of the suit that was led. 
-        Unless someone played trump, in which case the highest trump wins instead.
-        Then the person who won the trick leads the next one.
-      </p>
+      <p class="mt-16">{{ t('rules.playing.content2') }}</p>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">scoring</h2>
-      <p>Guessed wrong? You lose points equal to how far off you were:</p>
-      <p><code>&minus;|guess &minus; got|</code></p>
-      <p>Guessed right? You score points using whatever formula was set when the game was created.</p>
+      <h2 class="section-title">{{ t('rules.scoring.title') }}</h2>
+      <p>{{ t('rules.scoring.content1') }}</p>
+      <p><code>{{ t('rules.scoring.wrongFormula') }}</code></p>
+      <p>{{ t('rules.scoring.content2') }}</p>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">optional: blind first and last round</h2>
-      <p>
-        To make the 1-card rounds more interesting, you can play them blind:
-        hold your card facing outward so everyone can see it except you.
-      </p>
+      <h2 class="section-title">{{ t('rules.optional.title') }}</h2>
+      <p>{{ t('rules.optional.content') }}</p>
     </div>
 
     <div class="btn-row">
-      <button type="button" class="btn btn-primary" @click="goBack">
-        back to the table
-      </button>
+      <button type="button" class="btn btn-primary" @click="goBack">{{ t('common.backButton') }}</button>
     </div>
   </div>
 </template>

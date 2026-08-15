@@ -89,34 +89,34 @@ function createGame() {
     <PageHeader :title="t('home.title')" :lede="t('home.lede')" />
 
     <div class="panel">
-      <h2 class="section-title">players</h2>
+      <h2 class="section-title">{{ t('home.players.title') }}</h2>
 
       <div class="input-row">
-        <input v-model="newName" type="text" placeholder="player name" @keyup.enter="addPlayer" />
-        <button class="btn btn-ghost" @click="addPlayer">add</button>
+        <input v-model="newName" type="text" :placeholder="t('home.players.playerName')" @keyup.enter="addPlayer" />
+        <button class="btn btn-ghost" style="font-size:large" @click="addPlayer">&plus;</button>
       </div>
 
       <hr class="divider" />
 
       <ul class="roster">
-        <li v-if="players.length === 0" class="empty">No players yet.</li>
+        <li v-if="players.length === 0" class="empty">{{ t('home.players.noPlayers') }}</li>
         <li v-for="(player, index) in players" :key="index">
           <span class="index">{{ index + 1 }}.</span>
           <span class="name" :title="player">{{ player }}</span>
-          <button class="btn btn-ghost" @click="removePlayer(index)">remove</button>
+          <button class="btn btn-ghost" style="font-size:large" @click="removePlayer(index)">&minus;</button>
         </li>
       </ul>
 
-     <p v-if="players.length < 2" class="warning">At least 2 players are needed.</p>
+     <p v-if="players.length < 2" class="warning">{{ t('home.players.notEnoughPlayers') }}</p>
     </div>
 
     <div class="panel">
-      <h2 class="section-title">settings</h2>
+      <h2 class="section-title">{{ t('home.settings.title') }}</h2>
 
       <div class="field">
         <label for="peak-amount">
-          peak amount
-          <span class="hint" tabindex="0" data-tooltip="The number of cards each player holds at the highest point of the round.">?</span>
+          {{ t('home.settings.peakAmount') }}
+          <span class="hint" tabindex="0" :data-tooltip="t('home.settings.peakAmountTooltip')">?</span>
         </label>
         <div class="select-wrap">
           <select id="peak-amount" v-model="peakAmount" :disabled="!canCreate">
@@ -127,8 +127,8 @@ function createGame() {
 
       <div class="field">
         <label for="peak-rounds">
-          peak rounds
-          <span class="hint" tabindex="0" data-tooltip="How many rounds are played at the peak amount before the hand size starts shrinking again.">?</span>
+          {{ t('home.settings.peakRounds') }}
+          <span class="hint" tabindex="0" :data-tooltip="t('home.settings.peakRoundsTooltip')">?</span>
         </label>
         <div class="select-wrap">
           <select id="peak-rounds" v-model="peakRounds">
@@ -139,7 +139,10 @@ function createGame() {
       </div>
 
       <div class="field">
-        <label for="points-formula">points formula</label>
+        <label for="points-formula">
+          {{ t('home.settings.pointsFormula') }}
+          <span class="hint" tabindex="0" :data-tooltip="t('home.settings.pointsFormulaTooltip')">?</span>
+        </label>
         <div class="select-wrap">
           <select id="points-formula" v-model="formulaIndex">
             <option v-for="(f, index) in formulas" :key="index" :value="index">{{ f.label }}</option>
@@ -153,7 +156,7 @@ function createGame() {
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" :disabled="!canCreate" @click="createGame">deal the first hand</button>
+      <button class="btn btn-primary" :disabled="!canCreate" @click="createGame">{{ t('home.startButton') }}</button>
     </div>
   </div>
 </template>

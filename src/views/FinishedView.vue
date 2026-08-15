@@ -1,10 +1,13 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { parseQueryParams } from '@/utils/queryParams';
 import PageHeader from '@/components/PageHeader.vue';
+import LocaleToggle from '@/components/LocaleToggle.vue';
 
 const route = useRoute();
+const { t } = useI18n();
 
 const data = computed(() => {
   const temp = parseQueryParams(route.query, true);
@@ -35,7 +38,11 @@ const spawnEliasText = computed(() => {
 
 <template>
   <div class="page">
-    <PageHeader title="final tally" />
+    <div class="header-actions">
+      <LocaleToggle/>
+    </div>
+    
+    <PageHeader :title="t('finished.title')" />
 
     <div v-if="data.error" class="error-banner">{{ data.error }}</div>
 
@@ -50,8 +57,8 @@ const spawnEliasText = computed(() => {
           <thead>
             <tr>
               <th class="num">#</th>
-              <th>name</th>
-              <th class="num">score</th>
+              <th>{{ t('common.name') }}</th>
+              <th class="num">{{ t('common.score') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -70,7 +77,7 @@ const spawnEliasText = computed(() => {
     <div v-if="spawnEliasText" class="error-banner">Error: onmogelijk da Elias meer dan 0 heeft.</div>
 
     <div class="btn-row">
-      <RouterLink to="/" class="btn btn-primary">back to the table</RouterLink>
+      <RouterLink to="/" class="btn btn-primary">{{ t('finished.homeButton') }}</RouterLink>
     </div>
   </div>
 </template>

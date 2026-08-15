@@ -1,5 +1,8 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps({
   // ordered list of hand sizes for the whole game, e.g. [1,2,3,4,5,5,5,4,3,2,1]
@@ -26,11 +29,11 @@ function heightFor(value) {
         'is-current': index === currentIndex,
       }"
       :style="{ height: heightFor(value) }"
-      :title="`round ${index + 1}, ${value} card${value === 1 ? '' : 's'}`"
+      :title="t('components.peakStrip.barTooltip', { round: index + 1, count: value }, value)"
     ></div>
   </div>
   <p class="peak-strip-caption">
-    <span>round {{ Math.max(currentIndex, 0) + 1 }} of {{ sequence.length }}</span>
-    <span>peaks at {{ max }} card{{ max === 1 ? '' : 's' }}</span>
+    <span>{{ t('components.peakStrip.roundOf', { current: Math.max(currentIndex, 0) + 1, total: sequence.length }) }}</span>
+    <span>{{ t('components.peakStrip.peaksAt', max) }}</span>
   </p>
 </template>

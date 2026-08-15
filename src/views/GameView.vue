@@ -92,7 +92,7 @@ function updateScores(next) {
       </RouterLink>
     </div>
 
-    <PageHeader :title="t('game.title', data.amount)" />
+    <PageHeader :title="t('game.title', Math.max(peakIndex, 0) + 1)" />
 
     <div v-if="data.error">
       <div v-if="data.error" class="error-banner">{{ data.error }}</div>
@@ -105,6 +105,12 @@ function updateScores(next) {
     <template v-else>
       <div class="panel">
         <PeakStrip :sequence="peakSequence" :current-index="peakIndex" />
+        <hr class="divider" />
+        <p class="meta-row">
+          <span><strong>{{ data.amount }}</strong> {{ t('game.info.cardAmount', data.amount) }}</span>
+          <br>
+          <span>{{ t('game.info.formula') }}<strong>{{ formulas[data.formulaIndex].label }}</strong></span>
+        </p>
       </div>
 
       <div class="panel">
@@ -118,10 +124,10 @@ function updateScores(next) {
             </colgroup>
             <thead>
               <tr>
-                <th>name</th>
-                <th class="num">score</th>
-                <th class="num">guess</th>
-                <th class="num">got</th>
+                <th>{{ t('common.name') }}</th>
+                <th class="num">{{ t('common.score') }}</th>
+                <th class="num" style="text-align:center">{{ t('game.table.guess') }}</th>
+                <th class="num" style="text-align:center">{{ t('game.table.got') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -154,18 +160,14 @@ function updateScores(next) {
         </div>
 
         <p class="meta-row mt-16">
-          <span>total guesses: <strong>{{ totalGuesses }}</strong></span>
+          <span>{{ t('game.table.totalGuesses') }}<strong>{{ totalGuesses }}</strong></span>
           <br>
-          <span>total gots: <strong>{{ totalGots }}</strong></span>
-        </p>
-        <hr class="divider" />
-        <p class="meta-row">
-          <span>formula: <strong>{{ formulas[data.formulaIndex].label }}</strong></span>
+          <span>{{ t('game.table.totalGots') }}<strong>{{ totalGots }}</strong></span>
         </p>
       </div>
 
       <div class="btn-row">
-        <button class="btn btn-primary" :disabled="!canDoNext" @click="doNext">deal next round</button>
+        <button class="btn btn-primary" :disabled="!canDoNext" @click="doNext">{{ t('game.nextButton') }}</button>
       </div>
     </template>
   </div>
