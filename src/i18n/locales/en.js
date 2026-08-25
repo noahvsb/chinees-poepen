@@ -85,7 +85,7 @@ Then the person who won the trick leads the next one.`,
     scoring: {
       title: "scoring",
       content1: "Guessed wrong? You lose points equal to how far off you were:",
-      wrongFormula: "-|guess - got|",
+      wrongFormula: "guess - got",
       content2: "Guessed right? You score points using whatever formula was set when the game was created.",
     },
     optional: {

@@ -63,7 +63,7 @@ function goBack() {
     <div class="panel">
       <h2 class="section-title">{{ t('rules.scoring.title') }}</h2>
       <p>{{ t('rules.scoring.content1') }}</p>
-      <p><code>{{ t('rules.scoring.wrongFormula') }}</code></p>
+      <p><code>- |{{ t('rules.scoring.wrongFormula') }}|</code></p>
       <p>{{ t('rules.scoring.content2') }}</p>
     </div>
 

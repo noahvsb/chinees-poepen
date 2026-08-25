@@ -84,7 +84,7 @@ Daarna komt de winnaar de volgende slag uit.`,
     scoring: {
       title: "puntentelling",
       content1: "Fout gegokt? Je verliest punten gelijk aan hoe ver je ernaast zat:",
-      wrongFormula: "-|gok - behaald|",
+      wrongFormula: "gok - behaald",
       content2: "Juist gegokt? Je scoort punten volgens de formule die werd ingesteld bij het aanmaken van het spel.",
     },
     optional: {
